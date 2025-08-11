@@ -1,5 +1,6 @@
 import { connect } from "programming-game";
 import { config } from "dotenv";
+import { onTick } from "./onTick";
 
 config({
   path: ".env",
@@ -20,19 +21,5 @@ connect({
     id: assertEnv("USER_ID"),
     key: assertEnv("API_KEY"),
   },
-  onTick(heartbeat) {
-    const { player } = heartbeat;
-    if (!player) return;
-
-    // if we're dead, respawn
-    if (player.hp <= 0) {
-      return player.respawn();
-    }
-
-    // run to the right
-    return player.move({
-      x: player.position.x + 10,
-      y: 0,
-    });
-  },
+  onTick: onTick,
 });
