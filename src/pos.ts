@@ -1,8 +1,8 @@
 import { Position } from "programming-game/types";
 import { MAP_SIZE } from "./constants";
 
-export function packPos(coord: Position): number {
-  return coord.x * MAP_SIZE + coord.y;
+export function packPos(pos: Position): number {
+  return pos.x * MAP_SIZE + pos.y;
 }
 
 export function unpackPos(value: number): Position {

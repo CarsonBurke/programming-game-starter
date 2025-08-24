@@ -1,6 +1,6 @@
 import { TickHeartbeat } from "programming-game";
 import { tickState } from "./tickState";
-import { packPos, readPackedSet } from "./pos";
+import { packPos, readPackedSet } from "../pos";
 import { Position } from "programming-game/types";
 
 class State {
