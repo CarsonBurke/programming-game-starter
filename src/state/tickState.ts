@@ -1,15 +1,17 @@
-import { TickHeartbeat } from "programming-game";
-import { ClientSideMonster, ClientSideNPC, ClientSidePlayer, ClientSideUnit } from "programming-game/types";
+import { OnTickCurrentPlayer, TickHeartbeat } from "programming-game";
+import { FoodItems, Items } from "programming-game/items";
+import { ClientSideMonster, ClientSideNPC, ClientSidePlayer, ClientSideUnit, UniqueItemId } from "programming-game/types";
+import { FOOD } from "../constants";
 
 class TickState {
   update() {
     this.unitsByType = undefined
+    this.food = undefined
   }
   
-  
-  unitsByType?: UnitsByType;
+  private unitsByType?: UnitsByType;
   getUnitsByType(heartbeat: TickHeartbeat) {
-    if (!!this.unitsByType) return this.unitsByType;
+    if (this.unitsByType) return this.unitsByType;
     
     const { units } = heartbeat;
   
@@ -21,6 +23,21 @@ class TickState {
     
     this.unitsByType = unitsByType;
     return this.unitsByType;
+  }
+  
+  private food?: FoodItems[];
+  getFoodItems(player: OnTickCurrentPlayer) {
+    if (this.food) return this.food;
+    
+    const foodItems = Array.from(FOOD).filter((key) => {
+      const item_id = key as Items | UniqueItemId
+      const storage_count = player.inventory[item_id]
+      
+      return !!storage_count
+    }) as FoodItems[];
+    
+    this.food = foodItems;
+    return this.food;
   }
 }
 

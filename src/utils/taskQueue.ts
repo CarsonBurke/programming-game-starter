@@ -3,6 +3,12 @@
  * Uses swap-delete so deletes/moves are O(1) (order not stable).
  */
 export class UniqueTaskQueue<K extends number> {
+  
+  constructor(tasks: K[]) {
+    this.arr = tasks;
+    this.pos = new Map(tasks.map((k, i) => [k, i]));
+  }
+  
   private arr: K[] = [];
   private pos: Map<K, number> = new Map();
 

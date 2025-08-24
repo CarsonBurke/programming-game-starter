@@ -2,6 +2,7 @@ import { distance, OnTickCurrentPlayer, TickHeartbeat } from "programming-game";
 import { tickState } from "../state/tickState";
 import { PlayerTask, playerTasks, TaskResult } from "../state/playerTask";
 import { findMinOf } from "../utils/general";
+import { persistent } from "../state/persistent";
 
 export function fight(heartbeat: TickHeartbeat, player: OnTickCurrentPlayer) {
   const unitsByType = tickState.getUnitsByType(heartbeat);
@@ -17,7 +18,7 @@ export function fight(heartbeat: TickHeartbeat, player: OnTickCurrentPlayer) {
     playerTasks.pop();
     return TaskResult.Next;
   }
-
+  
   return player.attack(monster);
 }
 

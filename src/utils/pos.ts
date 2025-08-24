@@ -1,5 +1,5 @@
 import { Position } from "programming-game/types";
-import { MAP_SIZE } from "./constants";
+import { MAP_SIZE } from "../constants";
 
 export function packPos(pos: Position): number {
   return pos.x * MAP_SIZE + pos.y;

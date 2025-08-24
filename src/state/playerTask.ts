@@ -8,6 +8,7 @@ import { playerState } from "./playerState";
 import { UniqueTaskQueue } from "../utils/taskQueue";
 import { eat } from "../playerTasks/eat";
 import { fight } from "../playerTasks/fight";
+import { cultivate } from "../playerTasks/cultivate";
 
 export enum PlayerTask {
   Scavenge,
@@ -16,9 +17,10 @@ export enum PlayerTask {
   Retreat,
   Eat,
   Fight,
+  Cultivate,
 }
 
-export const playerTasks = new UniqueTaskQueue<PlayerTask>()
+export const playerTasks = new UniqueTaskQueue<PlayerTask>([PlayerTask.Scavenge])
 
 export type TaskRunner = (
   heartbeat: TickHeartbeat,
@@ -32,32 +34,10 @@ export const taskRunners: Record<PlayerTask, TaskRunner> = {
   [PlayerTask.Retreat]: retreat,
   [PlayerTask.Eat]: eat,
   [PlayerTask.Fight]: fight,
+  [PlayerTask.Cultivate]: cultivate,
 };
 
 export enum TaskResult {
   Stop,
   Next,
-}
-
-/**
- * Recursively run our tasks until we terminate
- */
-export function runTasks(
-  heartbeat: TickHeartbeat,
-  player: OnTickCurrentPlayer,
-) {
-  const task = playerTasks.task();
-  if (!task) return
-  
-  const stateRunner = taskRunners[task];
-  const taskResult = stateRunner(heartbeat, player);
-
-  if (taskResult === TaskResult.Stop) {
-    return
-  }
-  if (taskResult === TaskResult.Next) {
-    return runTasks(heartbeat, player);
-  }
-  
-  return taskResult
 }
