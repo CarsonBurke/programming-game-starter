@@ -9,6 +9,7 @@ import { UniqueTaskQueue } from "../utils/taskQueue";
 import { eat } from "../playerTasks/eat";
 import { fight } from "../playerTasks/fight";
 import { cultivate } from "../playerTasks/cultivate";
+import { dropItem } from "../playerTasks/dropItem";
 
 export enum PlayerTask {
   Scavenge,
@@ -18,6 +19,7 @@ export enum PlayerTask {
   Eat,
   Fight,
   Cultivate,
+  DropItem,
 }
 
 export const playerTasks = new UniqueTaskQueue<PlayerTask>([PlayerTask.Scavenge])
@@ -35,6 +37,7 @@ export const taskRunners: Record<PlayerTask, TaskRunner> = {
   [PlayerTask.Eat]: eat,
   [PlayerTask.Fight]: fight,
   [PlayerTask.Cultivate]: cultivate,
+  [PlayerTask.DropItem]: dropItem,
 };
 
 export enum TaskResult {

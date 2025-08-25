@@ -7,6 +7,7 @@ class TickState {
   update() {
     this.unitsByType = undefined
     this.food = undefined
+    this.playerWeight = undefined
   }
   
   private unitsByType?: UnitsByType;
@@ -38,6 +39,21 @@ class TickState {
     
     this.food = foodItems;
     return this.food;
+  }
+  
+  private playerWeight?: number
+  getPlayerWeight(heartbeat: TickHeartbeat, player: OnTickCurrentPlayer) {
+    if (this.playerWeight) return this.playerWeight;
+    
+    const weight = Object.entries(player.inventory).reduce((acc, [itemId, amount]: [string, number | undefined]) => {
+      if (!amount) return acc;
+      
+      const definition = heartbeat.items[itemId as Items];
+      return acc + amount * definition.weight;
+    }, 0);
+    
+    this.playerWeight = weight;
+    return this.playerWeight;
   }
 }
 

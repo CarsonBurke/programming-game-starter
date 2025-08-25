@@ -38,7 +38,6 @@ class Persistent {
   writePeriodically(heartbeat: TickHeartbeat) {
     if (heartbeat.time % 100 !== 0) return;
 
-    console.log("writing state");
     writeFile("state.json", JSON.stringify(persistent));
   }
 
@@ -48,6 +47,7 @@ class Persistent {
 
   private updateNpcLocations(heartbeat: TickHeartbeat) {
     const units = tickState.getUnitsByType(heartbeat);
+
     units.npc.forEach((npc) => {
       this.npcLocations.add(packPos(npc.position));
     });

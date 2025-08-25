@@ -7,7 +7,7 @@ export function cultivate(heartbeat: TickHeartbeat, player: OnTickCurrentPlayer)
 }
 
 export function maybeAssignCultivate(heartbeat: TickHeartbeat, player: OnTickCurrentPlayer) {
-  if (player.mp >= player.stats.maxHp * 0.7) {
+  if (player.mp >= player.stats.maxMp * 0.7) {
     return false
   } 
   

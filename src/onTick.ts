@@ -6,7 +6,7 @@ import { runTasks } from "./runTasks";
 import { settings } from "./state/settings";
 
 export function onTick(heartbeat: TickHeartbeat): Intent {
-  if (heartbeat.time % 100 == 0) console.log("tick", heartbeat.time);
+  if (heartbeat.time % 100 == 0) console.log("tick", heartbeat.time, "role", heartbeat.player?.role);
   const { player } = heartbeat;
   if (!player) {
     throw Error("no player");
