@@ -2,9 +2,13 @@ import { distance, OnTickCurrentPlayer, TickHeartbeat } from "programming-game";
 import { tickState } from "../state/tickState";
 import { PlayerTask, playerTasks, TaskResult } from "../state/playerTask";
 import { findMinOf } from "../utils/general";
-import { persistent } from "../state/persistent";
+import { maybeAssignRetreat } from "./retreat";
 
 export function fight(heartbeat: TickHeartbeat, player: OnTickCurrentPlayer) {
+  if (maybeAssignRetreat(heartbeat, player)) {
+    return TaskResult.Next;
+  }
+  
   const unitsByType = tickState.getUnitsByType(heartbeat);
   if (!unitsByType.monster.length) {
     playerTasks.pop();

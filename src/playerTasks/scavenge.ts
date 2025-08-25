@@ -3,11 +3,11 @@ import {  playerState } from "../state/playerState";
 import { PlayerTask, playerTasks, TaskResult } from "../state/playerTask";
 import { maybeAssignFight } from "./fight";
 import { maybeAssignEat } from "./eat";
+import { maybeAssignRetreat } from "./retreat";
 
 export function scavenge(heartbeat: TickHeartbeat, player: OnTickCurrentPlayer) {
-  if (player.hp < player.stats.maxHp * 0.5) {
-    playerTasks.ensureAtEnd(PlayerTask.Retreat)
-    return TaskResult.Next
+  if (maybeAssignRetreat(heartbeat, player)) {
+    return TaskResult.Next;
   }
   
   if (maybeAssignFight(heartbeat)) {

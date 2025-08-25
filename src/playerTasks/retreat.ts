@@ -28,3 +28,12 @@ export function retreat(heartbeat: TickHeartbeat, player: OnTickCurrentPlayer) {
   
   return player.move(SPAWN_POS);
 }
+
+export function maybeAssignRetreat(heartbeat: TickHeartbeat, player: OnTickCurrentPlayer) {
+  if (player.hp < player.stats.maxHp * 0.5 && distance(player.position, SPAWN_POS) > 10) {
+    playerTasks.ensureAtEnd(PlayerTask.Retreat)
+    return true
+  }
+  
+  return false
+}
