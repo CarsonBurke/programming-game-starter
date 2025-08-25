@@ -5,7 +5,7 @@ import { PlayerTask, playerTasks, TaskResult } from "../state/playerTask";
 import { maybeAssignEat } from "./eat";
 
 export function retreat(heartbeat: TickHeartbeat, player: OnTickCurrentPlayer) {
-  if (player.hp > player.stats.maxHp * 0.9 && distance(player.position, SPAWN_POS) < 10) {
+  if (player.hp > player.stats.maxHp * 0.9) {
     playerTasks.ensureAtEnd(PlayerTask.Scavenge)
     return TaskResult.Next
   }

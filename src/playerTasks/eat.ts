@@ -7,7 +7,7 @@ import { PlayerTask, playerTasks, TaskResult } from "../state/playerTask";
 import { tickState } from "../state/tickState";
 
 export function eat(heartbeat: TickHeartbeat, player: OnTickCurrentPlayer) {
-  if (!should_eat(player)) {
+  if (!shouldEat(player)) {
     playerTasks.pop();
     return TaskResult.Next;
   }
@@ -23,7 +23,7 @@ export function eat(heartbeat: TickHeartbeat, player: OnTickCurrentPlayer) {
   return player.eat(food);
 }
 
-function should_eat(player: OnTickCurrentPlayer) {
+function shouldEat(player: OnTickCurrentPlayer) {
   if (player.actionDuration) {
     console.log("can't eat - on cooldown");
     return false;
@@ -46,7 +46,7 @@ function should_eat(player: OnTickCurrentPlayer) {
 }
 
 export function maybeAssignEat(player: OnTickCurrentPlayer) {
-  if (!should_eat(player)) return false;
+  if (!shouldEat(player)) return false;
 
   playerTasks.ensureAtEnd(PlayerTask.Eat);
   return true;

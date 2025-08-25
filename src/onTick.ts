@@ -6,7 +6,7 @@ import { runTasks } from "./runTasks";
 import { settings } from "./state/settings";
 
 export function onTick(heartbeat: TickHeartbeat): Intent {
-  if (heartbeat.time % 100 == 0) console.log("tick", heartbeat.time, "role", heartbeat.player?.role);
+  if (heartbeat.time % 100 == 0) console.log("tick", heartbeat.time);
   const { player } = heartbeat;
   if (!player) {
     throw Error("no player");
@@ -21,7 +21,7 @@ export function onTick(heartbeat: TickHeartbeat): Intent {
     console.log("setting role to:", settings.role)
     return player.setRole(settings.role)
   }
-  
+
   persistent.writePeriodically(heartbeat);
 
   persistent.tickUpdate(heartbeat);
