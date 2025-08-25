@@ -4,6 +4,7 @@ import { PlayerTask, playerTasks, TaskResult } from "../state/playerTask";
 import { maybeAssignFight } from "./fight";
 import { maybeAssignEat } from "./eat";
 import { maybeAssignRetreat } from "./retreat";
+import { maybeAssignCultivate } from "./cultivate";
 
 export function scavenge(heartbeat: TickHeartbeat, player: OnTickCurrentPlayer) {
   if (maybeAssignRetreat(heartbeat, player)) {
@@ -15,6 +16,10 @@ export function scavenge(heartbeat: TickHeartbeat, player: OnTickCurrentPlayer) 
   }
   
   if (maybeAssignEat(player)) {
+    return TaskResult.Next;
+  }
+  
+  if (maybeAssignCultivate(heartbeat, player)) {
     return TaskResult.Next;
   }
   

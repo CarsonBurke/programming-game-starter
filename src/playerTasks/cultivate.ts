@@ -6,7 +6,7 @@ export function cultivate(heartbeat: TickHeartbeat, player: OnTickCurrentPlayer)
   return player.summonMana()
 }
 
-export function maybeCultivate(player: OnTickCurrentPlayer) {
+export function maybeAssignCultivate(heartbeat: TickHeartbeat, player: OnTickCurrentPlayer) {
   if (player.mp >= player.stats.maxHp * 0.7) {
     return false
   } 
